@@ -8,13 +8,13 @@ const knex = require("knex")({
   },
 });
 
-const createEntry = (description, amount) =>
+exports.createEntry = (description, amount) =>
   knex("sums").insert({ description, amount });
 
-const modifyEntry = (id, description, amount) =>
+exports.modifyEntry = (id, description, amount) =>
   knex("sums").where("id", "=", id).update({ description, amount });
 
-const deleteEntry = (id) => knex("sums").where("id", "=", id).del();
+exports.deleteEntry = (id) => knex("sums").where("id", "=", id).del();
 
-const listEntries = () =>
+exports.listEntries = () =>
   knex.select("id", "description", "amount").from("sums");
