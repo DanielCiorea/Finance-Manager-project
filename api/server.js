@@ -9,17 +9,25 @@ app.get("/entries", async (req, res) => {
   res.json(entries);
 });
 
-// TODO: ADD ANOTHER PAGE
-
-// app.get("/page2", (req, res) => {
-//   res.send("Second page - Test sums db");
-// });
-
 app.post("/entries", async (req, res) => {
   const { description, amount } = req.body;
 
   await database.createEntry(description, amount);
-  res.send("A post request from postman, man.");
+  res.json();
+});
+
+app.put("/entries/:id", async (req, res) => {
+  const { id } = req.params;
+  const { description, amount } = req.body;
+
+  await database.modifyEntry(id, description, amount);
+  res.json();
+});
+
+app.delete("/entries/:id", async (req, res) => {
+  const { id } = req.params;
+  await database.deleteEntry(id);
+  res.json();
 });
 
 app.listen(8080);
