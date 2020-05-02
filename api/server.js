@@ -1,8 +1,10 @@
 const express = require("express");
+const cors = require("cors");
 const database = require("./database");
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.get("/entries", async (req, res) => {
   const entries = await database.listEntries();
@@ -31,6 +33,3 @@ app.delete("/entries/:id", async (req, res) => {
 });
 
 app.listen(8080);
-
-
-
