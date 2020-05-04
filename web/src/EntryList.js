@@ -13,11 +13,11 @@ export default class EntryList extends React.Component {
     };
   }
 
-  modifyEntry = async (id, description, amount) => {
-    await modifyEntry(id, description, amount);
-    const entries = await listEntries();
-    this.setState({ entries });
-  };
+  // modifyEntry = async (id, description, amount) => {
+  //   await modifyEntry(id, description, amount);
+  //   const entries = await listEntries();
+  //   this.setState({ entries });
+  // };
 
   deleteEntry = async (id) => {
     await deleteEntry(id);
@@ -69,6 +69,8 @@ export default class EntryList extends React.Component {
 
     return (
       <div className="container">
+        <h2>Budget: ${this.state.budget}</h2>
+        <hr />
         Description:
         <input
           className="input"
@@ -87,18 +89,22 @@ export default class EntryList extends React.Component {
           onKeyPress={this.onInputKeyPress}
         />
         {filteredEntries.map((entry) => (
-          <label key={entry.id} className="entry">
-            <button>edit</button>
-            {entry.description} | ${entry.amount}
+          <div className="entries" key={entry.id}>
+            <label
+              className={`entry ${entry.amount >= 0 ? "positive" : "negative"}`}
+            >
+              <span>{entry.description}</span> <span>${entry.amount}</span>
+            </label>
             <button
               className="delButton"
               onClick={() => this.deleteEntry(entry.id)}
             >
               🗑
             </button>
-          </label>
+          </div>
         ))}
-        <div>
+        <hr />
+        <div className="buttons">
           <button onClick={this.setFilterToAll}>All</button>
           <button onClick={this.setFilterToIncomes}>Incomes</button>
           <button onClick={this.setFilterToExpenses}>Expenses</button>

@@ -7,6 +7,11 @@ body {
   background-color: #f1f2f3;
 }
 
+hr {
+  border: 1px solid black;
+  background-color: black;
+}
+
 #root {
   display: flex;
   align-items: center;
@@ -22,10 +27,33 @@ body {
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
 }
 
+.entries {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
 .entry {
-  display: block;
+  width: 92%;
+  padding: 5px 5px;
+  display: flex;
+  justify-content: inherit;
   font-size: 18px;
   margin-top: 6px;
+  background-color: #f2f4f6;
+}
+
+.entry:hover {
+  background-color: #e2e4e6;
+}
+
+.positive {
+  color: green;
+}
+
+.negative {
+  color: red;
 }
 
 .input {
@@ -38,16 +66,34 @@ body {
 
 .delButton {
   background-color: #fff;
-  color: rgba(255, 0, 0, 0.2);
+  color: rgba(255, 0, 0, 0.1);
   font-size: large;
   font-weight: bolder;
-  border: 1px solid rgba(255, 0, 0, 0.2);
+  border: 1px solid rgba(255, 0, 0, 0.1);
   border-radius: 100%;
   cursor: pointer;
+  display: inline-block;
 }
 
 .delButton:hover {
   color: rgba(255, 0, 0);
   border: 1px solid rgba(255, 0, 0);
   background-color: rgba(255, 0, 0, 0.1);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.buttons button {
+  padding: 2px 5px;
+  border: none;
+  border-radius: 2px;
+}
+
+.buttons button:hover {
+  cursor: pointer;
+  background-color: #555;
+  color: #fff;
 }
