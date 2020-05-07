@@ -1,11 +1,11 @@
 import React from "react";
-import { createEntry, listEntries, modifyEntry, deleteEntry } from "./entries";
+import { getBudget, createEntry, listEntries, deleteEntry } from "./entries";
 
 export default class EntryList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      budget: props.budget,
+      budget: "",
       description: "",
       amount: "",
       entries: [],
@@ -13,11 +13,11 @@ export default class EntryList extends React.Component {
     };
   }
 
-  // modifyEntry = async (id, description, amount) => {
-  //   await modifyEntry(id, description, amount);
-  //   const entries = await listEntries();
-  //   this.setState({ entries });
-  // };
+  getBudget = async () => {
+    const budget = await getBudget();
+    console.log(budget);
+    this.setState({ budget: budget[0].budget });
+  };
 
   deleteEntry = async (id) => {
     await deleteEntry(id);
@@ -25,7 +25,7 @@ export default class EntryList extends React.Component {
     this.setState({ entries });
   };
 
-  setFilterToAll = () => {
+  setFilterToAll = async () => {
     this.setState({ filter: "ALL" });
   };
 
@@ -45,6 +45,7 @@ export default class EntryList extends React.Component {
       : entries.filter((entry) => entry.amount < 0);
 
   async componentDidMount() {
+    await this.getBudget();
     const entries = await listEntries();
     this.setState({ entries });
   }
@@ -57,7 +58,18 @@ export default class EntryList extends React.Component {
     if (event.nativeEvent.keyCode === 13) {
       await createEntry(this.state.description, this.state.amount);
       const entries = await listEntries();
-      this.setState({ entries, description: "", amount: "" });
+      // const sumOfIncomeAndExpenses = entries
+      //   .map((entry) => entry.amount)
+      //   .reduce((a, b) => a + b);
+      const budget = await getBudget();
+      this.setState({
+        entries,
+        budget:
+          budget[0]
+            .budget /* (budget[0].budget + sumOfIncomeAndExpenses).toFixed(2), */,
+        description: "",
+        amount: "",
+      });
     }
   };
 

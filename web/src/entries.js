@@ -1,5 +1,10 @@
 import axios from "axios";
 
+export const getBudget = async () => {
+  const budget = await axios.get("http://localhost:8080/users");
+  return budget.data;
+};
+
 export const listEntries = async () => {
   const result = await axios.get("http://localhost:8080/entries");
   return result.data;

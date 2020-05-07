@@ -11,6 +11,11 @@ app.get("/entries", async (req, res) => {
   res.json(entries);
 });
 
+app.get("/users", async (req, res) => {
+  const users = await database.getBudget();
+  res.json(users);
+});
+
 app.post("/entries", async (req, res) => {
   const { description, amount } = req.body;
 
@@ -23,6 +28,14 @@ app.put("/entries/:id", async (req, res) => {
   const { description, amount } = req.body;
 
   await database.modifyEntry(id, description, amount);
+  res.json();
+});
+
+app.put("/users/:id", async (req, res) => {
+  const { id } = req.params;
+  const { budget } = req.body;
+
+  await database.modifyBudget(id, budget);
   res.json();
 });
 
