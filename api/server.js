@@ -6,9 +6,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get("/entries", async (req, res) => {
-  const entries = await database.listEntries();
-  res.json(entries);
+app.get("/transactions", async (req, res) => {
+  const transactions = await database.listTransactions();
+  res.json(transactions);
 });
 
 app.get("/users", async (req, res) => {
@@ -16,18 +16,18 @@ app.get("/users", async (req, res) => {
   res.json(users);
 });
 
-app.post("/entries", async (req, res) => {
+app.post("/transactions", async (req, res) => {
   const { description, amount } = req.body;
 
-  await database.createEntry(description, amount);
+  await database.createTransaction(description, amount);
   res.json();
 });
 
-app.put("/entries/:id", async (req, res) => {
+app.put("/transactions/:id", async (req, res) => {
   const { id } = req.params;
   const { description, amount } = req.body;
 
-  await database.modifyEntry(id, description, amount);
+  await database.modifyTransaction(id, description, amount);
   res.json();
 });
 
@@ -39,9 +39,9 @@ app.put("/users/:id", async (req, res) => {
   res.json();
 });
 
-app.delete("/entries/:id", async (req, res) => {
+app.delete("/transactions/:id", async (req, res) => {
   const { id } = req.params;
-  await database.deleteEntry(id);
+  await database.deleteTransaction(id);
   res.json();
 });
 

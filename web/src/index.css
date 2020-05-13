@@ -4,7 +4,7 @@
 }
 
 body {
-  background-color: #f1f2f3;
+  background-color: #485969;
 }
 
 hr {
@@ -23,18 +23,18 @@ hr {
   margin-top: 50px;
   width: 440px;
   padding: 18px;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
 }
 
-.entries {
+.transactions {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 5px 0;
 }
 
-.entry {
+.transaction {
   width: 92%;
   padding: 5px 5px;
   display: flex;
@@ -44,7 +44,7 @@ hr {
   background-color: #f2f4f6;
 }
 
-.entry:hover {
+.transaction:hover {
   background-color: #e2e4e6;
 }
 

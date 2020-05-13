@@ -2,15 +2,15 @@ const config = require("./config");
 
 const knex = require("knex")(config);
 
-exports.createEntry = (description, amount) =>
+exports.createTransaction = (description, amount) =>
   knex("transactions").insert({ description, amount });
 
-exports.modifyEntry = (id, description, amount) =>
+exports.modifyTransaction = (id, description, amount) =>
   knex("transactions").where({ id }).update({ description, amount });
 
-exports.deleteEntry = (id) => knex("transactions").where({ id }).del();
+exports.deleteTransaction = (id) => knex("transactions").where({ id }).del();
 
-exports.listEntries = () =>
+exports.listTransactions = () =>
   knex.select("id", "description", "amount").from("transactions");
 
 exports.getBudget = () => knex.select("budget").from("users");

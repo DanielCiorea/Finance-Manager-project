@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import EntryList from "./EntryList";
+import TransactionList from "./TransactionList";
 import "./index.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <EntryList />
+    <TransactionList />
   </React.StrictMode>,
   document.getElementById("root")
 );
