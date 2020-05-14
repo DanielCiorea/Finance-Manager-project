@@ -2,18 +2,39 @@ const config = require("./config");
 
 const knex = require("knex")(config);
 
-exports.createTransaction = (description, amount) =>
-  knex("transactions").insert({ description, amount });
+exports.createUser = (name, email, password) =>
+  knex("users").insert({ name, email, password });
 
-exports.modifyTransaction = (id, description, amount) =>
-  knex("transactions").where({ id }).update({ description, amount });
+exports.findUsersByEmail = async (email) => {
+  const users = await knex
+    .select("id", "name", "email", "password")
+    .where({ email })
+    .from("users");
 
-exports.deleteTransaction = (id) => knex("transactions").where({ id }).del();
+  return users.length < 1 ? undefined : users[0];
+};
 
-exports.listTransactions = () =>
-  knex.select("id", "description", "amount").from("transactions");
-
-exports.getBudget = () => knex.select("budget").from("users");
+//TODO - implement functionality
+exports.getBudget = (id) =>
+  knex.select("id", "budget").where({ id }).from("users");
 
 exports.modifyBudget = (id, budget) =>
   knex("users").where({ id }).update({ budget });
+
+/******************  TRANSACTIONS *******************/
+
+exports.listTransactions = (userId) =>
+  knex
+    .select("id", "description", "amount")
+    .where({ userId })
+    .from("transactions");
+
+exports.createTransaction = (userId, description, amount) =>
+  knex("transactions").insert({ userId, description, amount });
+
+// Modify not used... yet.
+exports.modifyTransaction = (userId, id, description, amount) =>
+  knex("transactions").where({ userId, id }).update({ description, amount });
+
+exports.deleteTransaction = (userId, id) =>
+  knex("transactions").where({ userId, id }).del();
