@@ -6,11 +6,13 @@ import {
   listTransactions,
 } from "./transactionsAxios";
 
+import Header from "./Header";
 import Filters from "./Filters";
 import Transactions from "./Transactions";
 import Input from "./Input";
+import { deleteUser, deleteToken } from "./session";
 
-export default class TransactionList extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,19 +31,6 @@ export default class TransactionList extends React.Component {
       .map((x) => x.amount)
       .reduce((a, b) => a + b, 0);
     this.setState({
-      budget: budget[0].budget + sumOfTransactions,
-    });
-  };
-
-  deleteTransaction = async (id) => {
-    await deleteTransaction(id);
-    const transactions = await listTransactions();
-    const budget = await getBudget();
-    const sumOfTransactions = transactions
-      .map((x) => x.amount)
-      .reduce((a, b) => a + b, 0);
-    this.setState({
-      transactions,
       budget: budget[0].budget + sumOfTransactions,
     });
   };
@@ -92,6 +81,25 @@ export default class TransactionList extends React.Component {
     }
   };
 
+  deleteTransaction = async (id) => {
+    await deleteTransaction(id);
+    const transactions = await listTransactions();
+    const budget = await getBudget();
+    const sumOfTransactions = transactions
+      .map((x) => x.amount)
+      .reduce((a, b) => a + b, 0);
+    this.setState({
+      transactions,
+      budget: budget[0].budget + sumOfTransactions,
+    });
+  };
+
+  signOut = () => {
+    deleteUser();
+    deleteToken();
+    this.props.history.push("/signIn");
+  };
+
   render() {
     const filteredTransactions = this.filterTransactions(
       this.state.transactions,
@@ -100,8 +108,10 @@ export default class TransactionList extends React.Component {
 
     return (
       <div className="container">
+        <Header />
         <h2>Budget: ${this.state.budget}</h2>
         <hr />
+        <h3>Add your incomes and expenses below.</h3>
         Description:
         <Input
           type="text"
@@ -128,6 +138,7 @@ export default class TransactionList extends React.Component {
           setFilterToIncomes={this.setFilterToIncomes}
           setFilterToExpenses={this.setFilterToExpenses}
         />
+        <button onClick={this.signOut}>Sign out</button>
       </div>
     );
   }

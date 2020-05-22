@@ -1,8 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+
 const database = require("./database");
+const accessToken = require("./accessToken");
+const authMiddleware = require("./authMiddleware");
 
 const app = express();
 app.use(express.json());
@@ -23,7 +25,6 @@ app.post("/signIn", async (req, res) => {
     res.status(401).json({ message: "Email not found." });
     return;
   }
-  console.log(user);
 
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
   if (!isPasswordCorrect) {
@@ -31,13 +32,12 @@ app.post("/signIn", async (req, res) => {
     return;
   }
   // password included in token?
-  const token = jwt.sign({ user });
-  console.log(token);
+  const token = accessToken.createAccessToken(user);
   res.json({ token, user });
 });
 
 app.get("/users", async (req, res) => {
-  const users = await database.getBudget();
+  const users = await database.getBudget(1);
   res.json(users);
 });
 
@@ -51,30 +51,30 @@ app.put("/users/:id", async (req, res) => {
 
 /******************  TRANSACTIONS *******************/
 
-app.post("/transactions", async (req, res) => {
-  const { userId, description, amount } = req.body;
-
-  await database.createTransaction(userId, description, amount);
+app.post("/transactions", authMiddleware, async (req, res) => {
+  const { description, amount } = req.body;
+  await database.createTransaction(req.user.id, description, amount);
   res.json();
 });
 
-app.get("/transactions", async (req, res) => {
-  const transactions = await database.listTransactions(1);
+app.get("/transactions", authMiddleware, async (req, res) => {
+  const transactions = await database.listTransactions(req.user.id);
   res.json(transactions);
 });
 
 // modify not used
-app.put("/transactions/:id", async (req, res) => {
+app.put("/transactions/:id", authMiddleware, async (req, res) => {
   const { id } = req.params;
   const { description, amount } = req.body;
 
-  await database.modifyTransaction(id, description, amount);
+  await database.modifyTransaction(req.user.id, id, description, amount);
   res.json();
 });
 
-app.delete("/transactions/:id", async (req, res) => {
+app.delete("/transactions/:id", authMiddleware, async (req, res) => {
   const { id } = req.params;
-  await database.deleteTransaction(id);
+
+  await database.deleteTransaction(req.user.id, id);
   res.json();
 });
 

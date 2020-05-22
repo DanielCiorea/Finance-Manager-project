@@ -18,6 +18,42 @@ hr {
   justify-content: center;
 }
 
+.header {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 80px;
+  width: 100vw;
+}
+
+.logo {
+  height: 80px;
+  width: 80px;
+}
+
+.signContainer {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  margin-top: 100px;
+  width: auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.signContainer span {
+  color: blue;
+  cursor: pointer;
+  margin: 0px auto;
+}
+
+.signContainer span:hover {
+  text-decoration: underline;
+}
+
 .container {
   border-radius: 4px;
   margin-top: 50px;
@@ -58,10 +94,11 @@ hr {
 
 .input {
   display: block;
+  width: 300px;
   padding: 6px 8px;
   font-size: 18px;
   background-color: #eee;
-  margin-right: 10px;
+  margin: 5px 0;
 }
 
 .delButton {
@@ -79,6 +116,16 @@ hr {
   color: rgba(255, 0, 0);
   border: 1px solid rgba(255, 0, 0);
   background-color: rgba(255, 0, 0, 0.1);
+}
+
+.button {
+  margin: 25px auto;
+  cursor: pointer;
+  background-color: rgb(243, 243, 243);
+  border-radius: 6px;
+  color: #000;
+  height: 25px;
+  width: 120px;
 }
 
 .buttons {

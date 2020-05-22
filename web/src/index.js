@@ -1,11 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import TransactionList from "./TransactionList";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+
+import SignUp from "./SignUp";
+import SignIn from "./SignIn";
+import App from "./App";
 import "./index.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <TransactionList />
+    <BrowserRouter>
+      <Switch>
+        <Route path="/signUp" component={SignUp} />
+        <Route path="/signIn" component={SignIn} />
+        <Route path="/transactions" component={App} />
+        <Redirect from="/" to="/transactions" />
+      </Switch>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
