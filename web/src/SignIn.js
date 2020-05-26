@@ -27,6 +27,8 @@ export default class SignIn extends React.Component {
     const { user, token } = await signIn(this.state.email, this.state.password);
     setUser(user);
     setToken(token);
+    console.log("user -> ", user);
+    console.log("token -> ", token);
     this.props.history.push("/transactions");
   };
 
@@ -37,7 +39,7 @@ export default class SignIn extends React.Component {
   render() {
     return (
       <div className="signContainer">
-        <Header />
+        {/* <Header /> */}
         <h1>Sign In</h1>
         Email:
         <Input

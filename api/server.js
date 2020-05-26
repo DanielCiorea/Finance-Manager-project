@@ -11,9 +11,9 @@ app.use(express.json());
 app.use(cors());
 
 app.post("/signUp", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, budget } = req.body;
   const hashedPassword = await bcrypt.hash(password, 4);
-  await database.createUser(name, email, hashedPassword);
+  await database.createUser(name, email, hashedPassword, budget);
   res.json();
 });
 
@@ -36,9 +36,9 @@ app.post("/signIn", async (req, res) => {
   res.json({ token, user });
 });
 
-app.get("/users", async (req, res) => {
-  const users = await database.getBudget(1);
-  res.json(users);
+app.get("/users", authMiddleware, async (req, res) => {
+  const id = await database.getBudget(req.user.id);
+  res.json(id);
 });
 
 app.put("/users/:id", async (req, res) => {

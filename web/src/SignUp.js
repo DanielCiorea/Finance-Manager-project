@@ -9,6 +9,7 @@ export default class SignUp extends React.Component {
       name: "",
       email: "",
       password: "",
+      budget: 0,
     };
   }
 
@@ -27,8 +28,18 @@ export default class SignUp extends React.Component {
     this.setState({ password });
   };
 
+  onBudgetChange = (e) => {
+    const budget = e.target.value;
+    this.setState({ budget });
+  };
+
   signUp = async () => {
-    await signUp(this.state.name, this.state.email, this.state.password);
+    await signUp(
+      this.state.name,
+      this.state.email,
+      this.state.password,
+      this.state.budget
+    );
     this.props.history.push("/signIn");
   };
 
@@ -58,6 +69,13 @@ export default class SignUp extends React.Component {
           type="password"
           value={this.state.password}
           onChange={this.onPasswordChange}
+        />
+        Please enter your budget:
+        <Input
+          name="budget"
+          type="number"
+          value={this.state.budget}
+          onChange={this.onBudgetChange}
         />
         <button className="button" onClick={this.signUp}>
           Sign Up

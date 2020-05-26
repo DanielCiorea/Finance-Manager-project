@@ -2,8 +2,8 @@ const config = require("./config");
 
 const knex = require("knex")(config);
 
-exports.createUser = (name, email, password) =>
-  knex("users").insert({ name, email, password });
+exports.createUser = (name, email, password, budget) =>
+  knex("users").insert({ name, email, password, budget });
 
 exports.findUsersByEmail = async (email) => {
   const users = await knex

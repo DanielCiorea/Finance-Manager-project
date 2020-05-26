@@ -108,7 +108,7 @@ export default class App extends React.Component {
 
     return (
       <div className="container">
-        <Header />
+        {/* <Header /> */}
         <h2>Budget: ${this.state.budget}</h2>
         <hr />
         <h3>Add your incomes and expenses below.</h3>
