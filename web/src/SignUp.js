@@ -13,24 +13,12 @@ export default class SignUp extends React.Component {
     };
   }
 
-  onNameChange = (e) => {
-    const name = e.target.value;
-    this.setState({ name });
+  onInputChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
   };
 
-  onEmailChange = (e) => {
-    const email = e.target.value;
-    this.setState({ email });
-  };
-
-  onPasswordChange = (e) => {
-    const password = e.target.value;
-    this.setState({ password });
-  };
-
-  onBudgetChange = (e) => {
-    const budget = e.target.value;
-    this.setState({ budget });
+  redirect = () => {
+    this.props.history.push("/signIn");
   };
 
   signUp = async () => {
@@ -40,11 +28,7 @@ export default class SignUp extends React.Component {
       this.state.password,
       this.state.budget
     );
-    this.props.history.push("/signIn");
-  };
-
-  redirect = () => {
-    this.props.history.push("/signIn");
+    this.redirect();
   };
 
   render() {
@@ -55,27 +39,27 @@ export default class SignUp extends React.Component {
         <Input
           name="name"
           value={this.state.name}
-          onChange={this.onNameChange}
+          onChange={this.onInputChange}
         />
         Email:
         <Input
           name="email"
           value={this.state.email}
-          onChange={this.onEmailChange}
+          onChange={this.onInputChange}
         />
         Password:
         <Input
           name="password"
           type="password"
           value={this.state.password}
-          onChange={this.onPasswordChange}
+          onChange={this.onInputChange}
         />
         Please enter your budget:
         <Input
           name="budget"
           type="number"
           value={this.state.budget}
-          onChange={this.onBudgetChange}
+          onChange={this.onInputChange}
         />
         <button className="button" onClick={this.signUp}>
           Sign Up

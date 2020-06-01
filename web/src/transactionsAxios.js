@@ -8,6 +8,17 @@ export const getBudget = async () => {
   return budget.data;
 };
 
+export const modifyBudget = (id, budget) =>
+  axios.put(
+    `http://localhost:8080/users/${id}`,
+    {
+      budget,
+    },
+    {
+      headers: { token: getToken() },
+    }
+  );
+
 export const listTransactions = async () => {
   const result = await axios.get("http://localhost:8080/transactions", {
     headers: { token: getToken() },

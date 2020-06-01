@@ -41,11 +41,10 @@ app.get("/users", authMiddleware, async (req, res) => {
   res.json(id);
 });
 
-app.put("/users/:id", async (req, res) => {
-  const { id } = req.params;
+app.put("/users/:id", authMiddleware, async (req, res) => {
   const { budget } = req.body;
 
-  await database.modifyBudget(id, budget);
+  await database.modifyBudget(req.user.id, budget);
   res.json();
 });
 

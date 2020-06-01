@@ -1,16 +1,17 @@
 import React from "react";
 import {
   getBudget,
+  modifyBudget,
   createTransaction,
   deleteTransaction,
   listTransactions,
 } from "./transactionsAxios";
 
-import Header from "./Header";
+// import Header from "./Header";
 import Filters from "./Filters";
 import Transactions from "./Transactions";
 import Input from "./Input";
-import { deleteUser, deleteToken } from "./session";
+import { getUser, deleteUser, deleteToken } from "./session";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -26,13 +27,14 @@ export default class App extends React.Component {
 
   getBudget = async () => {
     const budget = await getBudget();
-    const transactions = await listTransactions();
-    const sumOfTransactions = transactions
-      .map((x) => x.amount)
-      .reduce((a, b) => a + b, 0);
     this.setState({
-      budget: budget[0].budget + sumOfTransactions,
+      budget: budget[0].budget,
     });
+  };
+
+  modifyBudget = async (budget) => {
+    const user = await getUser();
+    await modifyBudget(JSON.parse(user).id, budget);
   };
 
   setFilterToAll = async () => {
@@ -68,30 +70,30 @@ export default class App extends React.Component {
     if (event.nativeEvent.keyCode === 13) {
       await createTransaction(this.state.description, this.state.amount);
       const transactions = await listTransactions();
-      const sumOfTransactions = transactions
-        .map((x) => x.amount)
-        .reduce((a, b) => a + b, 0);
       const budget = await getBudget();
       this.setState({
         transactions,
-        budget: budget[0].budget + sumOfTransactions,
+        budget: parseInt(budget[0].budget) + parseInt(this.state.amount),
         description: "",
         amount: "",
       });
+      await this.modifyBudget(this.state.budget);
     }
   };
 
-  deleteTransaction = async (id) => {
+  deleteTransaction = async (id, amount) => {
     await deleteTransaction(id);
+
     const transactions = await listTransactions();
-    const budget = await getBudget();
-    const sumOfTransactions = transactions
-      .map((x) => x.amount)
-      .reduce((a, b) => a + b, 0);
+
+    let budget = this.state.budget;
+    budget = budget - amount;
     this.setState({
       transactions,
-      budget: budget[0].budget + sumOfTransactions,
+      budget: budget,
     });
+
+    await this.modifyBudget(this.state.budget);
   };
 
   signOut = () => {

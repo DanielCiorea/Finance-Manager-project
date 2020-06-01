@@ -2,7 +2,7 @@ import React from "react";
 import { signIn } from "./users";
 import { setUser, setToken } from "./session";
 import Input from "./Input";
-import Header from "./Header";
+// import Header from "./Header";
 
 export default class SignIn extends React.Component {
   constructor(props) {
@@ -27,8 +27,6 @@ export default class SignIn extends React.Component {
     const { user, token } = await signIn(this.state.email, this.state.password);
     setUser(user);
     setToken(token);
-    console.log("user -> ", user);
-    console.log("token -> ", token);
     this.props.history.push("/transactions");
   };
 

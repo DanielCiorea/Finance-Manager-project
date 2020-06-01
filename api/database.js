@@ -14,7 +14,6 @@ exports.findUsersByEmail = async (email) => {
   return users.length < 1 ? undefined : users[0];
 };
 
-//TODO - implement functionality
 exports.getBudget = (id) =>
   knex.select("id", "budget").where({ id }).from("users");
 
