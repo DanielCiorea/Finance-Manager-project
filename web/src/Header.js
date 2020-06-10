@@ -9,8 +9,6 @@ class Header extends React.Component {
     this.state = {
       userName: "",
     };
-
-    console.log(props);
   }
 
   componentDidMount() {
@@ -29,11 +27,15 @@ class Header extends React.Component {
       <div className="header">
         <img
           className="logo"
-          src="https://lh3.googleusercontent.com/6fnuIpYkS-CWwQhU6M7KQ5xk514Gip8DT3_-SigdTMmqeKGNRBbHwxilYbj55PtGZ3c"
+          src="https://i.ibb.co/Pxd08N5/6fnu-Ip-Yk-S-CWw-Qh-U6-M7-KQ5xk514-Gip8-DT3-Sigd-TMmqe-KGNRBb-Hwxil-Ybj55-Pt-GZ3c-1.png"
           alt=""
         />
-        <span>Signed in as: {this.state.userName}</span>
-        <button onClick={this.signOut}>Sign out</button>
+        <div>
+          <span>
+            Signed in as <p>{this.state.userName}</p>
+          </span>
+          <button onClick={this.signOut}>Sign out</button>
+        </div>
       </div>
     );
   }

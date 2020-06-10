@@ -20,12 +20,38 @@ hr {
 }
 
 .header {
+  display: flex;
+  justify-content: space-around;
   position: absolute;
   left: 0px;
   top: 0px;
-  background-color: rgba(251, 251, 251, 0.3);
+  background-color: rgba(0, 0, 0, 0.3);
   height: 80px;
   width: 100vw;
+}
+
+.header div {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.header button {
+  margin-bottom: 5px;
+  height: 25px;
+  width: 80px;
+}
+
+.header span {
+  height: 25px;
+  color: #fff;
+}
+
+.header p {
+  color: rgb(236, 229, 119);
+
+  margin-top: 0px;
+  font-weight: bold;
 }
 
 .logo {
@@ -46,7 +72,7 @@ hr {
 }
 
 .signContainer span {
-  color: rgb(60, 60, 111);
+  color: rgb(91, 91, 154);
   cursor: pointer;
   margin: 0px auto;
 }
@@ -61,7 +87,7 @@ hr {
 
 .container {
   border-radius: 4px;
-  margin-top: 50px;
+  margin-top: 80px;
   width: 440px;
   padding: 18px;
   background-color: rgb(255, 255, 255);

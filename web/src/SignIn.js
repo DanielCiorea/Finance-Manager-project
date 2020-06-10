@@ -31,7 +31,6 @@ export default class SignIn extends React.Component {
       );
       setUser(user);
       setToken(token);
-      console.log(this.props.history);
 
       this.props.history.push("/transactions");
     } catch (err) {

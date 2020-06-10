@@ -31,7 +31,7 @@ export default class SignUp extends React.Component {
       );
       this.redirect();
     } catch (err) {
-      alert("Email already in use.");
+      alert(err);
     }
   };
 
