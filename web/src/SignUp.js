@@ -44,20 +44,17 @@ export default class SignUp extends React.Component {
           value={this.state.name}
           onChange={this.onInputChange}
         />
-        <br />
         <Input
           name="email"
           value={this.state.email}
           onChange={this.onInputChange}
         />
-        <br />
         <Input
           name="password"
           type="password"
           value={this.state.password}
           onChange={this.onInputChange}
         />
-        <br />
         <hr />
         Please enter your budget:
         <Input

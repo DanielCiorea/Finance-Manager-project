@@ -52,7 +52,6 @@ export default class SignIn extends React.Component {
           value={this.state.email}
           onChange={this.onEmailChange}
         />
-        <br />
         <Input
           name="password"
           type="password"

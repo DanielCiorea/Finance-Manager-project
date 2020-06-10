@@ -105,7 +105,6 @@ export default class App extends React.Component {
         <h2>Budget: ${this.state.budget}</h2>
         <hr />
         <h3>Add your incomes and expenses below.</h3>
-        Description:
         <Input
           type="text"
           name="description"
@@ -113,7 +112,6 @@ export default class App extends React.Component {
           onChange={this.onInputChange}
           onKeyPress={this.onInputKeyPress}
         />
-        Amount:
         <Input
           type="number"
           name="amount"
