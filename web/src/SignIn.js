@@ -24,10 +24,19 @@ export default class SignIn extends React.Component {
   };
 
   signIn = async () => {
-    const { user, token } = await signIn(this.state.email, this.state.password);
-    setUser(user);
-    setToken(token);
-    this.props.history.push("/transactions");
+    try {
+      const { user, token } = await signIn(
+        this.state.email,
+        this.state.password
+      );
+      setUser(user);
+      setToken(token);
+      console.log(this.props.history);
+
+      this.props.history.push("/transactions");
+    } catch (err) {
+      alert("Invalid email or password.");
+    }
   };
 
   redirect = () => {
@@ -39,13 +48,12 @@ export default class SignIn extends React.Component {
       <div className="signContainer">
         {/* <Header /> */}
         <h1>Sign In</h1>
-        Email:
         <Input
           name="email"
           value={this.state.email}
           onChange={this.onEmailChange}
         />
-        Password:
+        <br />
         <Input
           name="password"
           type="password"

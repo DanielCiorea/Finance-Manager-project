@@ -7,6 +7,7 @@ const Input = (props) => {
         type={props.type}
         className="input"
         name={props.name}
+        placeholder={props.name}
         value={props.value}
         onChange={props.onChange}
         onKeyPress={props.onKeyPress}

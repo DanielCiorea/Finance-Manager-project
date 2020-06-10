@@ -22,38 +22,43 @@ export default class SignUp extends React.Component {
   };
 
   signUp = async () => {
-    await signUp(
-      this.state.name,
-      this.state.email,
-      this.state.password,
-      this.state.budget
-    );
-    this.redirect();
+    try {
+      await signUp(
+        this.state.name,
+        this.state.email,
+        this.state.password,
+        this.state.budget
+      );
+      this.redirect();
+    } catch (err) {
+      alert("Email already in use.");
+    }
   };
 
   render() {
     return (
       <div className="signContainer">
         <h1>Sign Up</h1>
-        Name:
         <Input
           name="name"
           value={this.state.name}
           onChange={this.onInputChange}
         />
-        Email:
+        <br />
         <Input
           name="email"
           value={this.state.email}
           onChange={this.onInputChange}
         />
-        Password:
+        <br />
         <Input
           name="password"
           type="password"
           value={this.state.password}
           onChange={this.onInputChange}
         />
+        <br />
+        <hr />
         Please enter your budget:
         <Input
           name="budget"

@@ -10,6 +10,7 @@ body {
 hr {
   border: 1px solid black;
   background-color: black;
+  width: auto;
 }
 
 #root {
@@ -22,7 +23,7 @@ hr {
   position: absolute;
   left: 0px;
   top: 0px;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(251, 251, 251, 0.3);
   height: 80px;
   width: 100vw;
 }
@@ -45,13 +46,17 @@ hr {
 }
 
 .signContainer span {
-  color: blue;
+  color: rgb(60, 60, 111);
   cursor: pointer;
   margin: 0px auto;
 }
 
 .signContainer span:hover {
   text-decoration: underline;
+}
+
+.signContainer hr {
+  width: 300px;
 }
 
 .container {
@@ -94,6 +99,7 @@ hr {
 
 .input {
   display: block;
+  border-radius: 6px;
   width: 300px;
   padding: 6px 8px;
   font-size: 18px;

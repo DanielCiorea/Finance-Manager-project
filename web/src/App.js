@@ -7,11 +7,11 @@ import {
   listTransactions,
 } from "./transactionsAxios";
 
-// import Header from "./Header";
+import Header from "./Header";
 import Filters from "./Filters";
 import Transactions from "./Transactions";
 import Input from "./Input";
-import { getUser, deleteUser, deleteToken } from "./session";
+import { getUser } from "./session";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -32,9 +32,9 @@ export default class App extends React.Component {
     });
   };
 
-  modifyBudget = async (budget) => {
-    const user = await getUser();
-    await modifyBudget(JSON.parse(user).id, budget);
+  modifyBudget = (budget) => {
+    const user = getUser();
+    modifyBudget(JSON.parse(user).id, budget);
   };
 
   setFilterToAll = async () => {
@@ -73,33 +73,24 @@ export default class App extends React.Component {
       const budget = await getBudget();
       this.setState({
         transactions,
-        budget: parseInt(budget[0].budget) + parseInt(this.state.amount),
+        budget: budget[0].budget + parseInt(this.state.amount),
         description: "",
         amount: "",
       });
-      await this.modifyBudget(this.state.budget);
+      this.modifyBudget(this.state.budget);
     }
   };
 
   deleteTransaction = async (id, amount) => {
     await deleteTransaction(id);
-
     const transactions = await listTransactions();
-
-    let budget = this.state.budget;
-    budget = budget - amount;
+    const budget = await getBudget();
     this.setState({
       transactions,
-      budget: budget,
+      budget: budget[0].budget - amount,
     });
 
-    await this.modifyBudget(this.state.budget);
-  };
-
-  signOut = () => {
-    deleteUser();
-    deleteToken();
-    this.props.history.push("/signIn");
+    this.modifyBudget(this.state.budget);
   };
 
   render() {
@@ -110,7 +101,7 @@ export default class App extends React.Component {
 
     return (
       <div className="container">
-        {/* <Header /> */}
+        <Header />
         <h2>Budget: ${this.state.budget}</h2>
         <hr />
         <h3>Add your incomes and expenses below.</h3>
@@ -140,7 +131,6 @@ export default class App extends React.Component {
           setFilterToIncomes={this.setFilterToIncomes}
           setFilterToExpenses={this.setFilterToExpenses}
         />
-        <button onClick={this.signOut}>Sign out</button>
       </div>
     );
   }

@@ -15,7 +15,9 @@ const Transactions = (props) => {
           </label>
           <button
             className="delButton"
-            onClick={() => props.deleteTransaction(transaction.id, transaction.amount)}
+            onClick={() =>
+              props.deleteTransaction(transaction.id, transaction.amount)
+            }
           >
             🗑
           </button>

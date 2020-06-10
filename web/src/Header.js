@@ -1,19 +1,27 @@
 import React from "react";
-import { getUser } from "./session";
+import { getUser, deleteUser, deleteToken } from "./session";
+import { withRouter } from "react-router-dom";
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: "",
+      userName: "",
     };
+
+    console.log(props);
   }
 
-  getUser = () => {
+  componentDidMount() {
     const user = getUser();
-    this.setState({ user });
-    console.log(user.name);
+    this.setState({ userName: JSON.parse(user).name });
+  }
+
+  signOut = () => {
+    deleteUser();
+    deleteToken();
+    this.props.history.push("/signIn");
   };
 
   render() {
@@ -24,7 +32,11 @@ export default class Header extends React.Component {
           src="https://lh3.googleusercontent.com/6fnuIpYkS-CWwQhU6M7KQ5xk514Gip8DT3_-SigdTMmqeKGNRBbHwxilYbj55PtGZ3c"
           alt=""
         />
+        <span>Signed in as: {this.state.userName}</span>
+        <button onClick={this.signOut}>Sign out</button>
       </div>
     );
   }
 }
+
+export default withRouter(Header);
