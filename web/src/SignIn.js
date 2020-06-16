@@ -2,7 +2,6 @@ import React from "react";
 import { signIn } from "./users";
 import { setUser, setToken } from "./session";
 import Input from "./Input";
-// import Header from "./Header";
 
 export default class SignIn extends React.Component {
   constructor(props) {
@@ -45,7 +44,6 @@ export default class SignIn extends React.Component {
   render() {
     return (
       <div className="signContainer">
-        {/* <Header /> */}
         <h1>Sign In</h1>
         <Input
           name="email"
