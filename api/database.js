@@ -31,7 +31,6 @@ exports.listTransactions = (userId) =>
 exports.createTransaction = (userId, description, amount) =>
   knex("transactions").insert({ userId, description, amount });
 
-// Modify not used... yet.
 exports.modifyTransaction = (userId, id, description, amount) =>
   knex("transactions").where({ userId, id }).update({ description, amount });
 

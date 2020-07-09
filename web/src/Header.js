@@ -32,7 +32,7 @@ class Header extends React.Component {
         />
         <div>
           <span>
-            Signed in as <p>{this.state.userName}</p>
+            Signed in as <p>{this.state.userName.split(" ")[0]}</p>
           </span>
           <button onClick={this.signOut}>Sign out</button>
         </div>

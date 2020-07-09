@@ -142,8 +142,12 @@ hr {
 }
 
 .delButton {
+  margin-top: 8px;
   background-color: #fff;
   color: rgba(255, 0, 0, 0.1);
+  width: 30px;
+  height: 30px;
+  top: 15px;
   font-size: large;
   font-weight: bolder;
   border: 1px solid rgba(255, 0, 0, 0.1);

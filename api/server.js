@@ -13,8 +13,13 @@ app.use(cors());
 app.post("/signUp", async (req, res) => {
   const { name, email, password, budget } = req.body;
   const hashedPassword = await bcrypt.hash(password, 4);
-  await database.createUser(name, email, hashedPassword, budget);
-  res.json();
+
+  try {
+    await database.createUser(name, email, hashedPassword, budget);
+    res.json();
+  } catch (err) {
+    res.status(400).json({ error: "Email..." });
+  }
 });
 
 app.post("/signIn", async (req, res) => {
@@ -31,7 +36,7 @@ app.post("/signIn", async (req, res) => {
     res.status(401).json({ message: "Wrong password." });
     return;
   }
-  // password included in token?
+
   const token = accessToken.createAccessToken(user);
   res.json({ token, user });
 });
@@ -61,7 +66,6 @@ app.get("/transactions", authMiddleware, async (req, res) => {
   res.json(transactions);
 });
 
-// modify not used
 app.put("/transactions/:id", authMiddleware, async (req, res) => {
   const { id } = req.params;
   const { description, amount } = req.body;
